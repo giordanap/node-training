@@ -1,4 +1,4 @@
-const { response } = require('express');
+const { request, response } = require('express');
 
 const beerGet = (req, res = response) => {
   res.json({
@@ -12,7 +12,9 @@ const beerPut = (req, res = response) => {
   });
 }
 
-const beerPost = (req, res = response) => {
+const beerPost = (req = request, res = response) => {
+  console.log("leyendo el body");
+  console.log(req.body);
   res.json({
     msg: 'Post Response from Controller'
   });
