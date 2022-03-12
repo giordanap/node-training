@@ -1,19 +1,22 @@
 const { request, response } = require('express');
 
-const beerGet = (req, res = response) => {
+const beerGet = (req = request, res = response) => {
+  const {q, nombre, apiKey} = req.query;
   res.json({
-    msg: 'Get Response from Controller'
+    msg: 'Get Response from Controller',
+      q, nombre, apiKey
   });
 }
 
-const beerPut = (req, res = response) => {
+const beerPut = (req = request, res = response) => {
+  const { id } = req.params;
   res.json({
-    msg: 'Put Response from Controller'
+    msg: 'Put Response from Controller',
+    id
   });
 }
 
 const beerPost = (req = request, res = response) => {
-  console.log("leyendo el body");
   console.log(req.body);
   res.json({
     msg: 'Post Response from Controller'

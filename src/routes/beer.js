@@ -11,11 +11,11 @@ const router = Router();
 
 router.get('/', beerGet);
 
-router.put('/', beerPut);
+router.put('/:id', beerPut);
 
 router.post('/', beerPost);
 
-router.delete('/', beerDelete);
+router.delete('/:id', beerDelete);
 
 router.patch('/', beerPatch);
 
