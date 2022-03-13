@@ -1,4 +1,5 @@
 const { request, response } = require('express');
+const Beer = require('../models/beer');
 
 const beerGet = (req = request, res = response) => {
   const {q, nombre, apiKey} = req.query;
@@ -16,10 +17,14 @@ const beerPut = (req = request, res = response) => {
   });
 }
 
-const beerPost = (req = request, res = response) => {
-  console.log(req.body);
+const beerPost = async(req = request, res = response) => {
+  const { body } = req;
+  const beer = new Beer(body);
+  console.log(body);
+  await beer.save();
   res.json({
-    msg: 'Post Response from Controller'
+    msg: 'Post Response from Controller',
+    beer
   });
 }
 
