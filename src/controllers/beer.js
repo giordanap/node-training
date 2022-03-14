@@ -21,23 +21,8 @@ const beerPut = (req = request, res = response) => {
 
 const beerPost = async(req = request, res = response) => {
 
-  // Check if it is a valid email
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    // console.log(errors);
-    return res.status(400).json(errors);
-  }
-
   const { name, brandEmail, country, city } = req.body;
   const beer = new Beer({ name, brandEmail, country, city });
-
-  // Check if email exists
-  const emailExists = await Beer.findOne({brandEmail});
-  if (emailExists) {
-    return res.status(400).json({
-      msg: 'Email exists in system'
-    });
-  }
 
   // Encrypt Country
   const salt = bcryptjs.genSaltSync();
