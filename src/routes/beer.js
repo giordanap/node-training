@@ -8,7 +8,10 @@ const {
 } = require('../controllers/beer');
 const { check } = require('express-validator');
 const { validateFields } = require('../middlewares/validate-fields');
-const { isValidCountry } = require('../helpers/db-validators');
+const { 
+	isValidCountry, 
+	isValidBrandEmail 
+} = require('../helpers/db-validators');
 const Beer = require('../models/beer');
 
 const router = Router();
@@ -21,14 +24,7 @@ router.post('/', [
 	check('name', 'Name is required').not().isEmpty(),
 	check('city', 'City must be a string with 3 characters as minimun').isLength({min: 3}),
 	check('country').custom(isValidCountry),
-	check('brandEmail').custom(
-		async(brandEmail = '') => {
-			const emailExists = await Beer.findOne({ brandEmail });
-			if (emailExists) {
-				throw new Error(`The brandEmail ${ brandEmail } exist`);
-			}
-		}
-	),
+	check('brandEmail').custom(isValidBrandEmail),
 	validateFields,
 	],
 	beerPost);
