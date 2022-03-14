@@ -1,4 +1,5 @@
 const { request, response } = require('express');
+const bcryptjs = require('bcryptjs');
 const Beer = require('../models/beer');
 
 const beerGet = (req = request, res = response) => {
@@ -18,12 +19,21 @@ const beerPut = (req = request, res = response) => {
 }
 
 const beerPost = async(req = request, res = response) => {
-  const { body } = req;
-  const beer = new Beer(body);
-  console.log(body);
+  const { name, brand, country, city } = req.body;
+  console.log(name, brand, country, city);
+  const beer = new Beer({ name, brand, country, city });
+
+  // Check if brand exist
+
+  // Encrypt Country
+  const salt = bcryptjs.genSaltSync();
+  beer.country = bcryptjs.hashSync(country, salt);
+
+  // Save in DB
   await beer.save();
+
+  // API response
   res.json({
-    msg: 'Post Response from Controller',
     beer
   });
 }
