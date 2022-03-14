@@ -1,6 +1,7 @@
 const { request, response } = require('express');
 const bcryptjs = require('bcryptjs');
 const Beer = require('../models/beer');
+const { validationResult } = require('express-validator');
 
 const beerGet = (req = request, res = response) => {
   const {q, nombre, apiKey} = req.query;
@@ -19,11 +20,23 @@ const beerPut = (req = request, res = response) => {
 }
 
 const beerPost = async(req = request, res = response) => {
-  const { name, brand, country, city } = req.body;
-  console.log(name, brand, country, city);
-  const beer = new Beer({ name, brand, country, city });
 
-  // Check if brand exist
+  // Check if it is a valid email
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    return res.status(400).json(errors);
+  }
+
+  const { name, brandEmail, country, city } = req.body;
+  const beer = new Beer({ name, brandEmail, country, city });
+
+  // Check if email exists
+  const emailExists = await Beer.findOne({brandEmail});
+  if (emailExists) {
+    return res.status(400).json({
+      msg: 'Email exists in system'
+    });
+  }
 
   // Encrypt Country
   const salt = bcryptjs.genSaltSync();

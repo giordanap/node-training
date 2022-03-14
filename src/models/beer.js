@@ -5,9 +5,9 @@ const BeerSchema = Schema({
         type: String,
         // required: [true, 'Name is required']
     },
-    brand: {
+    brandEmail: {
         type: String,
-        // required: [true, 'Brand is required'],
+        // required: [true, 'BrandEmail is required'],
         // unique: true
     },
     country: {

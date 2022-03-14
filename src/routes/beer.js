@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { check } = require('express-validator');
 const {
 	beerGet,
 	beerPut,
@@ -13,7 +14,10 @@ router.get('/', beerGet);
 
 router.put('/:id', beerPut);
 
-router.post('/', beerPost);
+router.post('/', [
+	check('brandEmail', 'Invalid email').isEmail(),
+	],
+	beerPost);
 
 router.delete('/:id', beerDelete);
 
