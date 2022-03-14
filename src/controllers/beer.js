@@ -23,7 +23,8 @@ const beerPost = async(req = request, res = response) => {
 
   // Check if it is a valid email
   const errors = validationResult(req);
-  if (errors.isEmpty()) {
+  if (!errors.isEmpty()) {
+    // console.log(errors);
     return res.status(400).json(errors);
   }
 
