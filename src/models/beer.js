@@ -16,4 +16,9 @@ const BeerSchema = Schema({
     }
 });
 
+BeerSchema.methods.toJSON = function() {
+    const { __v, country, ...beer } = this.toObject();
+    return beer;
+}
+
 module.exports = model('Beer', BeerSchema);
