@@ -10,15 +10,21 @@ const { check } = require('express-validator');
 const { validateFields } = require('../middlewares/validate-fields');
 const { 
 	isValidCountry, 
-	isValidBrandEmail 
+	isValidBrandEmail,
+	beerExistsById
 } = require('../helpers/db-validators');
-const Beer = require('../models/beer');
 
 const router = Router();
 
 router.get('/', beerGet);
 
-router.put('/:id', beerPut);
+router.put('/:id',[
+	check('id', 'No es un id válido').isMongoId(), 
+	check('id').custom(beerExistsById),
+	check('country').custom(isValidCountry),
+	validateFields,
+	],
+	beerPut);
 
 router.post('/', [
 	check('name', 'Name is required').not().isEmpty(),

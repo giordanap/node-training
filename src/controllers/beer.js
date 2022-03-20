@@ -13,7 +13,7 @@ const beerGet = (req = request, res = response) => {
 const beerPut = async(req = request, res = response) => {
 
   const { id } = req.params;
-  const { country, city, ...payload } = req.body;
+  const { _id, country, city, ...payload } = req.body;
 
   // TODO: Valid againt database
   if (country) {

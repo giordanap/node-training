@@ -15,7 +15,15 @@ const isValidCountry = async(country = '') => {
     }
 }
 
+const beerExistsById = async(id) => {
+    const _beerExistsById = await Beer.findById(id);
+    if(!_beerExistsById) {
+        throw new Error(`The beer with id ${ id } doesn't exist`)
+    }
+}
+
 module.exports = {
     isValidCountry,
-    isValidBrandEmail
+    isValidBrandEmail,
+    beerExistsById
 }
