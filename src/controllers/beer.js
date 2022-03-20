@@ -4,11 +4,15 @@ const Beer = require('../models/beer');
 
 const beersGet = async(req = request, res = response) => {
   const { from = 0, limit = 5 } = req.query;
-  const beers = await Beer.find()
-    .skip(from)
-    .limit(limit);
+  const query = { state: true };
+
+  const [totalRows, beers] = await Promise.all([
+    Beer.countDocuments(),
+    Beer.find(query).skip(from).limit(limit)
+  ]);
 
   res.json({
+    totalRows,
     beers
   });
 }
