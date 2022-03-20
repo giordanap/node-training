@@ -1,7 +1,6 @@
 const { request, response } = require('express');
 const bcryptjs = require('bcryptjs');
 const Beer = require('../models/beer');
-const { validationResult } = require('express-validator');
 
 const beerGet = (req = request, res = response) => {
   const {q, nombre, apiKey} = req.query;
@@ -11,11 +10,24 @@ const beerGet = (req = request, res = response) => {
   });
 }
 
-const beerPut = (req = request, res = response) => {
+const beerPut = async(req = request, res = response) => {
+
   const { id } = req.params;
+  const { country, city, ...payload } = req.body;
+
+  // TODO: Valid againt database
+  if (country) {
+    // Encrypt country
+    const salt = bcryptjs.genSaltSync();
+    payload.country = bcryptjs.hashSync(country, salt);
+  }
+  
+  const beer = await Beer.findByIdAndUpdate(id, payload);
+  // console.log(beer);
+
   res.json({
     msg: 'Put Response from Controller',
-    id
+    payload
   });
 }
 
