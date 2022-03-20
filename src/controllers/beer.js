@@ -2,11 +2,24 @@ const { request, response } = require('express');
 const bcryptjs = require('bcryptjs');
 const Beer = require('../models/beer');
 
-const beerGet = (req = request, res = response) => {
-  const {q, nombre, apiKey} = req.query;
+const beersGet = async(req = request, res = response) => {
+  const { from = 0, limit = 5 } = req.query;
+  const beers = await Beer.find()
+    .skip(from)
+    .limit(limit);
+
   res.json({
-    msg: 'Get Response from Controller',
-      q, nombre, apiKey
+    beers
+  });
+}
+
+const beerGet = async(req = request, res = response) => {
+  // const {q, nombre, apiKey} = req.query;
+  const { id } = req.params;
+  const beer = await Beer.findById(id);
+
+  res.json({
+    beer
   });
 }
 
@@ -62,6 +75,7 @@ const beerPatch = (req, res = response) => {
 }
 
 module.exports = {
+  beersGet,
   beerGet,
   beerPut,
   beerPost,

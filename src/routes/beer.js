@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const {
+	beersGet,
 	beerGet,
 	beerPut,
 	beerPost,
@@ -16,7 +17,9 @@ const {
 
 const router = Router();
 
-router.get('/', beerGet);
+router.get('/', beersGet);
+
+router.get('/:id', beerGet);
 
 router.put('/:id',[
 	check('id', 'No es un id válido').isMongoId(), 
