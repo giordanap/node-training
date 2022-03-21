@@ -38,7 +38,12 @@ router.post('/', [
 	],
 	beerPost);
 
-router.delete('/:id', beerDelete);
+router.delete('/:id', [
+	check('id','No es un id válido').isMongoId(),
+	check('id').custom(beerExistsById),
+	validateFields
+	],
+	beerDelete);
 
 router.patch('/', beerPatch);
 

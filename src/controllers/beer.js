@@ -66,9 +66,14 @@ const beerPost = async(req = request, res = response) => {
   });
 }
 
-const beerDelete = (req, res = response) => {
+const beerDelete = async(req, res = response) => {
+  const { id } = req.params;
+
+  // We'll do physycal elimination
+  const beer = await Beer.findByIdAndDelete(id);
+
   res.json({
-    msg: 'Delete Response from Controller'
+    id
   });
 }
 
