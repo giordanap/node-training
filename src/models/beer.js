@@ -17,7 +17,8 @@ const BeerSchema = Schema({
 });
 
 BeerSchema.methods.toJSON = function() {
-    const { __v, country, ...beer } = this.toObject();
+    const { __v, country, _id,...beer } = this.toObject();
+    beer.uid = _id;
     return beer;
 }
 
