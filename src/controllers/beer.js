@@ -21,10 +21,8 @@ const beerGet = async(req = request, res = response) => {
   
   const { id } = req.params;
   const beer = await Beer.findById(id);
-
-  const uid = beer._id;
   
-  res.json({ beer, uid });
+  res.json( beer );
 }
 
 const beerPut = async(req = request, res = response) => {
