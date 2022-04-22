@@ -18,13 +18,13 @@ const beersGet = async(req = request, res = response) => {
 }
 
 const beerGet = async(req = request, res = response) => {
-  // const {q, nombre, apiKey} = req.query;
+  
   const { id } = req.params;
   const beer = await Beer.findById(id);
 
-  res.json({
-    beer
-  });
+  const uid = beer._id;
+  
+  res.json({ beer, uid });
 }
 
 const beerPut = async(req = request, res = response) => {

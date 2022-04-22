@@ -1,4 +1,15 @@
 const { Router } = require('express');
+const { check } = require('express-validator');
+
+const { validateFields } = require('../middlewares/validate-fields');
+const { validarJWT } = require('../middlewares/validar-jwt');
+
+const { 
+	isValidCountry, 
+	isValidBrandEmail,
+	beerExistsById
+} = require('../helpers/db-validators');
+
 const {
 	beersGet,
 	beerGet,
@@ -7,19 +18,15 @@ const {
 	beerDelete,
 	beerPatch
 } = require('../controllers/beer');
-const { check } = require('express-validator');
-const { validateFields } = require('../middlewares/validate-fields');
-const { 
-	isValidCountry, 
-	isValidBrandEmail,
-	beerExistsById
-} = require('../helpers/db-validators');
 
 const router = Router();
 
 router.get('/', beersGet);
 
-router.get('/:id', beerGet);
+router.get('/:id',[
+	validarJWT,
+	],
+	beerGet);
 
 router.put('/:id',[
 	check('id', 'No es un id válido').isMongoId(), 
