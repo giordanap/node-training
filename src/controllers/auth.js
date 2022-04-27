@@ -57,16 +57,36 @@ const googleSignIn = async( req, res = response ) => {
     const { id_token } = req.body;
 
     try {
-        
-        const googleUser = await googleVerify( id_token );
-        console.log(googleUser);
+
+        const { brandEmail, name, city } = await googleVerify( id_token );
+
+        let beer = await Beer.findOne({ brandEmail });
+
+        if ( !beer ) {
+            // Tengo que crearlo
+            const data = {
+                name: nombre,
+                brandEmail: correo,
+                country: 'Perú',
+                city: img
+            }
+
+            beer = new Beer( data );
+            await beer.save();
+        }
+
+        // Generar el JWT
+        const token = await generarJWT( beer.id );
 
         res.json({
-            msg: 'Todo bien!',
-            id_token
+            beer,
+            token
         })
 
     } catch (error) {
+        res.status(400).json({
+            msg: 'Token de Google no es válido'
+        })
     }
 
 }
