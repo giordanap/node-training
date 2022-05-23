@@ -1,14 +1,13 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { validateFields } = require('../middlewares/validate-fields');
-const { validarJWT } = require('../middlewares/validar-jwt');
+const { validateFields, validarJWT } = require('../middlewares');
 
 const { 
 	isValidCountry, 
 	isValidBrandEmail,
 	beerExistsById
-} = require('../helpers/db-validators');
+} = require('../helpers');
 
 const {
 	beersGet,
@@ -17,7 +16,7 @@ const {
 	beerPost,
 	beerDelete,
 	beerPatch
-} = require('../controllers/beer');
+} = require('../controllers');
 
 const router = Router();
 

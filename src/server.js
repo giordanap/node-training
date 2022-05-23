@@ -2,15 +2,18 @@ const express = require('express');
 const cors = require('cors');
 const { dbConnection } = require('../src/database/config');
 
+require('dotenv').config();
+
 class Server {
 
   constructor() {
     this.app = express();
     this.port = process.env.PORT;
 
-    this.app = {
+    this.pathList = {
       authPath : '/api/auth',
-      beerPath : '/api/beer'
+      beerPath : '/api/beer',
+      categoriasPath : '/api/categorias',
     }
 
     // Conectar a la base de datos
@@ -39,8 +42,9 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.path.authPath, require('./routes/auth'));
-    this.app.use(this.path.beerPath, require('./routes/beer'));
+    this.app.use(this.pathList.authPath, require('./routes/auth'));
+    this.app.use(this.pathList.categoriasPath, require('./routes/categorias'));
+    this.app.use(this.pathList.beerPath, require('./routes/beer'));
   }
 
   listen() {
