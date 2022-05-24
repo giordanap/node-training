@@ -25,6 +25,9 @@ const {
     actualizarProducto,
     borrarProducto,
   } = require('./producto');
+const {
+    buscar
+  } = require('./buscar');
 
 module.exports = {
     login,
@@ -45,4 +48,5 @@ module.exports = {
     productoPost,
     actualizarProducto,
     borrarProducto,
+    buscar
 }

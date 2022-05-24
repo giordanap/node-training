@@ -23,11 +23,11 @@ const obtenerProductos = async(req = request, res = response) => {
 const obtenerProducto = async(req = request, res = response) => {
   
   const { id } = req.params;
-  const Producto = await Producto.findById(id)
+  const producto = await Producto.findById(id)
                       .populate('beer', 'name')
                       .populate('categoria', 'name');
   
-  res.json( Producto );
+  res.json( producto );
 }
 
 const productoPost = async(req = request, res = response) => {
@@ -61,22 +61,23 @@ const actualizarProducto = async(req = request, res = response) => {
 
   payload.name = payload.name.toUpperCase();
   
-  const Producto = await Producto.findByIdAndUpdate(id, payload);
+  const producto = await Producto.findByIdAndUpdate(id, payload, { new: true})
+                    .populate('beer', 'name')
+                    .populate('categoria', 'name');
 
   res.json({
-    msg: 'Put Response from Controller',
-    Producto
+    producto
   });
 }
 
 const borrarProducto = async(req, res = response) => {
 
   const { id } = req.params;
-  const Producto = await Producto.findByIdAndUpdate(id, { state: false }, { new: true })
+  const producto = await Producto.findByIdAndUpdate(id, { state: false }, { new: true })
                       .populate('beer', 'name')
                       .populate('categoria', 'name');
 
-  res.json( Producto );
+  res.json( producto );
 }
 
 module.exports = {

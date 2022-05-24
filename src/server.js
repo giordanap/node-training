@@ -11,10 +11,11 @@ class Server {
     this.port = process.env.PORT;
 
     this.pathList = {
-      authPath : '/api/auth',
-      beerPath : '/api/beer',
-      categoriasPath : '/api/categorias',
-      productoPath : '/api/producto',
+      authPath :        '/api/auth',
+      beerPath :        '/api/beer',
+      categoriasPath :  '/api/categorias',
+      productoPath :    '/api/producto',
+      buscarPath :      '/api/buscar',
     }
 
     // Conectar a la base de datos
@@ -47,6 +48,7 @@ class Server {
     this.app.use(this.pathList.categoriasPath, require('./routes/categorias'));
     this.app.use(this.pathList.productoPath, require('./routes/producto'));
     this.app.use(this.pathList.beerPath, require('./routes/beer'));
+    this.app.use(this.pathList.buscarPath, require('./routes/buscar'));
   }
 
   listen() {
