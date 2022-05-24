@@ -25,6 +25,9 @@ const buscarBeers = async( termino = '', res = response) => {
         $or: [ 
             { name: regex },  
             { brandEmail: regex },  
+        ],
+        $and: [
+            { city: 'Lima'},
         ]
     });
 
