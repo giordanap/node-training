@@ -1,5 +1,4 @@
-const Country = require('../models/country');
-const Beer = require('../models/beer');
+const { Beer, Country, Categorias, Producto } = require('../models');
 
 const isValidBrandEmail = async(brandEmail = '') => {
     const EmailExists = await Beer.findOne({ brandEmail });
@@ -22,8 +21,24 @@ const beerExistsById = async(id) => {
     }
 }
 
+const categoriaExistsById = async(id) => {
+    const _categoriaExistsById = await Categorias.findById(id);
+    if(!_categoriaExistsById) {
+        throw new Error(`The category with id ${ id } doesn't exist`)
+    }
+}
+
+const productoExistsById = async(id) => {
+    const _productoExistsById = await Producto.findById(id);
+    if(!_productoExistsById) {
+        throw new Error(`The product with id ${ id } doesn't exist`)
+    }
+}
+
 module.exports = {
     isValidCountry,
     isValidBrandEmail,
-    beerExistsById
+    beerExistsById,
+    categoriaExistsById,
+    productoExistsById,
 }

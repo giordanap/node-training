@@ -14,7 +14,17 @@ const {
 const {
     cateogirasGet,
     cateogirasPost,
+    obtenerCategoria,
+    actualizarCategoria,
+    borrarCategoria,
   } = require('./categorias');
+const {
+    obtenerProductos,
+    obtenerProducto,
+    productoPost,
+    actualizarProducto,
+    borrarProducto,
+  } = require('./producto');
 
 module.exports = {
     login,
@@ -27,4 +37,12 @@ module.exports = {
     beerPatch,
     cateogirasGet,
     cateogirasPost,
+    obtenerCategoria,
+    actualizarCategoria,
+    borrarCategoria,
+    obtenerProductos,
+    obtenerProducto,
+    productoPost,
+    actualizarProducto,
+    borrarProducto,
 }

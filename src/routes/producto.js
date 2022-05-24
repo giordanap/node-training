@@ -1,44 +1,45 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { validateFields, validarJWT } = require('../middlewares');
-const { categoriaExistsById } = require('../helpers');
+const { productoExistsById, categoriaExistsById } = require('../helpers');
 
 const {
-    cateogirasGet,
-    cateogirasPost,
-    obtenerCategoria,
-    actualizarCategoria,
-    borrarCategoria,
+    obtenerProducto,
+    obtenerProductos,
+    productoPost,
+    actualizarProducto,
+    borrarProducto,
 } = require('../controllers');
 
 const router = Router();
 
-router.get('/', cateogirasGet);
+router.get('/', obtenerProductos);
 
 router.get('/:id',[
 	validarJWT,
-    check('id').custom( categoriaExistsById ),
+    check('id').custom( productoExistsById ),
 	],
-	obtenerCategoria);
+	obtenerProducto);
 
 router.post('/', [
     validarJWT,
     check('name','El nombre es obligatorio').not().isEmpty(),
+    check('categoria').custom(categoriaExistsById),
     validateFields,
-], cateogirasPost);
+], productoPost);
 
 router.put('/:id',[
     validarJWT,
-    check('id').custom(categoriaExistsById),
+    check('id').custom( productoExistsById ),
     validateFields,
 ],
-actualizarCategoria);
+actualizarProducto);
 
 router.delete('/:id', [
     validarJWT,
-    check('id').custom(categoriaExistsById),
+    check('id').custom( productoExistsById ),
     validateFields
     ],
-    borrarCategoria);
+    borrarProducto);
 
 module.exports = router;
