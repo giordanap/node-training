@@ -28,8 +28,11 @@ const {
 const {
     buscar
   } = require('./buscar');
-
-module.exports = {
+const {
+    cargarArchivo
+  } = require('./uploads');
+  
+  module.exports = {
     login,
     googleSignIn,
     beersGet,
@@ -48,5 +51,6 @@ module.exports = {
     productoPost,
     actualizarProducto,
     borrarProducto,
-    buscar
-}
+    buscar,
+    cargarArchivo,
+  }
