@@ -1,20 +1,12 @@
 
-const { generarJWT } = require('./generar-jwt');
-const { googleVerify } = require('./google-verify');
-const {
-    isValidCountry,
-    isValidBrandEmail,
-    beerExistsById,
-    categoriaExistsById,
-    productoExistsById,
-} = require('./db-validators');
+const generarJWT = require('./generar-jwt');
+const googleVerify = require('./google-verify');
+const dbValidators = require('./db-validators');
+const subirArchivo = require('./subir-archivo');
 
 module.exports = {
-    generarJWT,
-    googleVerify,
-    isValidCountry,
-    isValidBrandEmail,
-    beerExistsById,
-    categoriaExistsById,
-    productoExistsById,
+    ...generarJWT,
+    ...googleVerify,
+    ...dbValidators,
+    ...subirArchivo,
 }
