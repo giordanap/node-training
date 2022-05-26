@@ -16,29 +16,30 @@ const router = Router();
 router.get('/', obtenerProductos);
 
 router.get('/:id',[
-	validarJWT,
-    check('id').custom( productoExistsById ),
+        validarJWT,
+        check('id').custom( productoExistsById ),
 	],
 	obtenerProducto);
 
 router.post('/', [
-    validarJWT,
-    check('name','El nombre es obligatorio').not().isEmpty(),
-    check('categoria').custom(categoriaExistsById),
-    validateFields,
-], productoPost);
+        validarJWT,
+        check('name','El nombre es obligatorio').not().isEmpty(),
+        check('categoria').custom(categoriaExistsById),
+        validateFields,
+    ], 
+    productoPost);
 
 router.put('/:id',[
-    validarJWT,
-    check('id').custom( productoExistsById ),
-    validateFields,
-],
-actualizarProducto);
+        validarJWT,
+        check('id').custom( productoExistsById ),
+        validateFields,
+    ],
+    actualizarProducto);
 
 router.delete('/:id', [
-    validarJWT,
-    check('id').custom( productoExistsById ),
-    validateFields
+        validarJWT,
+        check('id').custom( productoExistsById ),
+        validateFields
     ],
     borrarProducto);
 

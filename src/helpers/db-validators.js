@@ -1,4 +1,5 @@
 const { Beer, Country, Categorias, Producto } = require('../models');
+const { collection } = require('../models/beer');
 
 const isValidBrandEmail = async(brandEmail = '') => {
     const EmailExists = await Beer.findOne({ brandEmail });
@@ -35,10 +36,21 @@ const productoExistsById = async(id) => {
     }
 }
 
+const coleccionesPermitidas = (coleccion = '', colecciones = []) => {
+
+    const incluida = colecciones.includes( coleccion );
+    if ( !incluida) {
+        throw new Error(`La coleccion ${ coleccion } no es permitida, ${ colecciones }`);
+    }
+
+    return true;
+}
+
 module.exports = {
     isValidCountry,
     isValidBrandEmail,
     beerExistsById,
     categoriaExistsById,
     productoExistsById,
+    coleccionesPermitidas,
 }

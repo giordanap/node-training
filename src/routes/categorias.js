@@ -16,28 +16,29 @@ const router = Router();
 router.get('/', cateogirasGet);
 
 router.get('/:id',[
-	validarJWT,
-    check('id').custom( categoriaExistsById ),
+        validarJWT,
+        check('id').custom( categoriaExistsById ),
 	],
 	obtenerCategoria);
 
 router.post('/', [
-    validarJWT,
-    check('name','El nombre es obligatorio').not().isEmpty(),
-    validateFields,
-], cateogirasPost);
+        validarJWT,
+        check('name','El nombre es obligatorio').not().isEmpty(),
+        validateFields,
+    ], 
+    cateogirasPost);
 
 router.put('/:id',[
-    validarJWT,
-    check('id').custom(categoriaExistsById),
-    validateFields,
-],
-actualizarCategoria);
+        validarJWT,
+        check('id').custom(categoriaExistsById),
+        validateFields,
+    ],
+    actualizarCategoria);
 
 router.delete('/:id', [
-    validarJWT,
-    check('id').custom(categoriaExistsById),
-    validateFields
+        validarJWT,
+        check('id').custom(categoriaExistsById),
+        validateFields
     ],
     borrarCategoria);
 
