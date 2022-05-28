@@ -27,6 +27,7 @@ const ProductoSchema = Schema({
     },
     description: { type: String},
     enable: { type: Boolean, default: true},
+    city: {type: String},
 });
 
 ProductoSchema.methods.toJSON = function() {
