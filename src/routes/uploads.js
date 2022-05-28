@@ -1,8 +1,13 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { cargarArchivo, actualizarArchivo, mostrarCity } = require('../controllers');
 const { validateFields, validarAchivoSubir } = require('../middlewares');
 const { coleccionesPermitidas } = require('../helpers')
+const { 
+    cargarArchivo, 
+    actualizarArchivo, 
+    mostrarCity, 
+    actualizarArchivoCloudinary 
+} = require('../controllers');
 
 const router = Router();
 
@@ -14,7 +19,8 @@ router.put('/:coleccion/:id', [
         validarAchivoSubir,
         validateFields,
     ], 
-    actualizarArchivo);
+    actualizarArchivoCloudinary);
+    // actualizarArchivo);
 
 router.get('/:coleccion/:id',[
         check('id', 'El id debe ser de mongo').isMongoId(),
