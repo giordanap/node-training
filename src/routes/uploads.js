@@ -6,7 +6,7 @@ const { coleccionesPermitidas } = require('../helpers')
 
 const router = Router();
 
-router.post('/', validarAchivoSubir, cargarArchivo);
+router.post('/:carpeta', validarAchivoSubir, cargarArchivo);
 
 router.put('/:coleccion/:id', [
         check('id', 'El id debe ser de mongo').isMongoId(),

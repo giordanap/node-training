@@ -9,7 +9,8 @@ const cargarArchivo = async( req, res = response ) => {
 
     try {
 
-        const nombre = await subirArchivo( req.files, undefined, 'fotos' );
+        const { carpeta } = req.params;
+        const nombre = await subirArchivo( req.files, undefined, carpeta );
         res.json({ nombre});
 
     } catch (msg) {
@@ -105,20 +106,19 @@ const mostrarCity = async( req, res = response) => {
         const pathCity = modelo.city;
 
         try {
-            if (fs.existsSync( pathCity )) fs.unlinkSync( pathCity );
+            if (fs.existsSync( pathCity )) {
+                return res.sendFile( pathCity );
+            }
         } catch (err) {
           console.error(err);
         }
 
     }
 
-    const name = await subirArchivo( req.files, undefined, coleccion );
-    modelo.city = name; // usado como campo para imagenes
-    
-
-    await modelo.save();
-
-    res.json({ modelo });
+    // res.json({ msg: 'falta place holder' });
+    const noImgPath = path.join( __dirname, '../../assets/no-image.jpg');
+    console.log(__dirname);
+    res.sendFile(noImgPath);
 }
 
 module.exports = {
