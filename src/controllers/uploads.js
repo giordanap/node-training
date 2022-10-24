@@ -165,9 +165,7 @@ const mostrarCity = async( req, res = response) => {
         const pathCity = modelo.city;
 
         try {
-            if (fs.existsSync( pathCity )) {
-                return res.sendFile( pathCity );
-            }
+            return res.sendFile( pathCity );
         } catch (err) {
           console.error(err);
         }
@@ -176,7 +174,6 @@ const mostrarCity = async( req, res = response) => {
 
     // res.json({ msg: 'falta place holder' });
     const noImgPath = path.join( __dirname, '../../assets/no-image.jpg');
-    console.log(__dirname);
     res.sendFile(noImgPath);
 }
 
